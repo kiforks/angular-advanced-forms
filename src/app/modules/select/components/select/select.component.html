@@ -1,0 +1,37 @@
+<div class="label">{{ label }}</div>
+
+<div #origin="cdkOverlayOrigin" cdkOverlayOrigin class="control">
+	<input
+		*ngIf="searchable && isOpen; else nothingSelectedRef"
+		#input
+		class="select-search"
+		placeholder="Start typing..."
+		(input)="onSearchInput($event)"
+	/>
+
+	<ng-template #nothingSelectedRef>
+		<span class="selected-value" [ngClass]="{ empty: !value }">
+			{{ displayValue || 'Nothing is selected...' }}
+		</span>
+	</ng-template>
+
+	<button *ngIf="value" class="clear-button" (click)="clearSelection($event)">clear</button>
+
+	<span class="drop-down-icon">👇</span>
+</div>
+
+<ng-template
+	cdkConnectedOverlay
+	cdkConnectedOverlayHasBackdrop
+	cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+	[cdkConnectedOverlayOrigin]="origin"
+	[cdkConnectedOverlayOpen]="isOpen"
+	[cdkConnectedOverlayOffsetY]="8"
+	[cdkConnectedOverlayOffsetX]="-11"
+	(backdropClick)="close()"
+	(detach)="close()"
+>
+	<div class="panel" [@dropDown] (@dropDown.done)="onPanelAnimationDone($event)">
+		<ng-content></ng-content>
+	</div>
+</ng-template>
