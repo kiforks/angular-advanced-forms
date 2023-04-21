@@ -18,8 +18,8 @@ export interface DynamicFormControl<T = string> {
 	};
 }
 
-export type DynamicFormControlComponents = {
-	[T in DynamicFormControlType]: Type<any>;
+export type DynamicFormControlLazyComponents = {
+	[T in DynamicFormControlType]: () => Promise<Type<any>>;
 };
 
 export type DynamicFormControlType = 'input' | 'select' | 'checkbox' | 'group';

@@ -1,11 +1,7 @@
-import { Directive, inject, Injector, Input, OnChanges, ViewContainerRef } from '@angular/core';
+import { ChangeDetectorRef, Directive, inject, Injector, Input, OnChanges, ViewContainerRef } from '@angular/core';
 import { DynamicFormControlData } from '../../interfaces/dynamic-form.interface';
-import { DynamicFormInputComponent } from '../../components/dynamic-form-input/dynamic-form-input.component';
-import { DynamicFormSelectComponent } from '../../components/dynamic-form-select/dynamic-form-select.component';
 import { DYNAMIC_FORM_CONTROL_DATA } from '../../tokens/dynamic-form-control-data.token';
-import { DynamicFormControlComponents } from '../../interfaces/dynamic-form-control.interface';
-import { DynamicFormCheckboxComponent } from '../../components/dynamic-form-checkbox/dynamic-form-checkbox.component';
-import { DynamicFormGroupComponent } from '../../components/dynamic-form-group/dynamic-form-group.component';
+import { DynamicFormControlLazyComponents } from '../../interfaces/dynamic-form-control.interface';
 
 @Directive({
 	selector: '[dynamicFormControl]',
@@ -16,14 +12,26 @@ export class DynamicFormControlDirective implements OnChanges {
 
 	private readonly injector = inject(Injector);
 
-	private readonly controlComponents: DynamicFormControlComponents = {
-		input: DynamicFormInputComponent,
-		select: DynamicFormSelectComponent,
-		checkbox: DynamicFormCheckboxComponent,
-		group: DynamicFormGroupComponent,
+	private readonly controlLazyComponents: DynamicFormControlLazyComponents = {
+		input: () =>
+			import('../../components/dynamic-form-input/dynamic-form-input.component').then(
+				c => c.DynamicFormInputComponent
+			),
+		select: () =>
+			import('../../components/dynamic-form-select/dynamic-form-select.component').then(
+				c => c.DynamicFormSelectComponent
+			),
+		checkbox: () =>
+			import('../../components/dynamic-form-checkbox/dynamic-form-checkbox.component').then(
+				c => c.DynamicFormCheckboxComponent
+			),
+		group: () =>
+			import('../../components/dynamic-form-group/dynamic-form-group.component').then(
+				c => c.DynamicFormGroupComponent
+			),
 	};
 
-	constructor(private readonly viewContainerRef: ViewContainerRef) {}
+	constructor(private readonly viewContainerRef: ViewContainerRef, private readonly cdr: ChangeDetectorRef) {}
 
 	public ngOnChanges(): void {
 		const { control, key } = this.data;
@@ -39,6 +47,12 @@ export class DynamicFormControlDirective implements OnChanges {
 			],
 		});
 
-    this.viewContainerRef.createComponent(this.controlComponents[control.controlType], { injector });
+		this.controlLazyComponents[control.controlType]().then(component => {
+			this.viewContainerRef.createComponent(component, {
+				injector,
+			});
+
+      this.cdr.detectChanges();
+		});
 	}
 }
