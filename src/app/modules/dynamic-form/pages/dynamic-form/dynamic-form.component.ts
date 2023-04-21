@@ -5,13 +5,13 @@ import { HttpClient } from '@angular/common/http';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DynamicFormConfig } from '../../interfaces/dynamic-form.interface';
 import { banWords } from '../../../reactive-forms/validators/ban-words.validator';
-import { DynamicFormControlDirective } from '../../directives/dynamic-form-control/dynamic-form-control.directive';
 import { DynamicFormControl, DynamicFormControls } from '../../interfaces/dynamic-form-control.interface';
+import { DynamicFormModule } from '../../dynamic-form.module';
 
 @Component({
 	selector: 'dynamic-forms',
 	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, DynamicFormControlDirective],
+	imports: [CommonModule, ReactiveFormsModule, DynamicFormModule],
 	templateUrl: './dynamic-form.component.html',
 	styleUrls: ['../../../../../assets/scss/common-page.scss', './dynamic-form.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,

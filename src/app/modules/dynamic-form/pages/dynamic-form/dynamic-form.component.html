@@ -7,7 +7,7 @@
 	<form [formGroup]="form" (ngSubmit)="onSubmit()">
 		<h3 class="form-heading">{{ formConfig.description }}</h3>
 
-		<div *ngFor="let control of formConfig.controls | keyvalue" class="form-field">
+		<ng-container *ngFor="let control of formConfig.controls | keyvalue">
 			<ng-container [dynamicFormControl]="{ control: control.value, key: control.key }"></ng-container>
 
 			<div
@@ -31,7 +31,7 @@
 			>
 				This word is not allowed
 			</div>
-		</div>
+		</ng-container>
 
 		<button [disabled]="form.invalid">Save</button>
 	</form>
