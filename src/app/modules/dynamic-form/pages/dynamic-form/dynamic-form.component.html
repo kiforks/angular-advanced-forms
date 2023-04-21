@@ -15,27 +15,6 @@
 				[ngComponentOutletInjector]="control.key | dynamicFormControlInjector : control.value"
 			></ng-container>
 
-			<!--      <ng-container [ngSwitch]="control.value.controlType">-->
-			<!--        <input-->
-			<!--          *ngSwitchCase="'input'"-->
-			<!--          [formControlName]="control.key"-->
-			<!--          [value]="control.value.value"-->
-			<!--          [id]="control.key"-->
-			<!--          [type]="control.value.type"-->
-			<!--        />-->
-
-			<!--        <select-->
-			<!--          *ngSwitchCase="'select'"-->
-			<!--          [formControlName]="control.key"-->
-			<!--          [id]="control.key"-->
-			<!--          [value]="control.value.value"-->
-			<!--        >-->
-			<!--          <option *ngFor="let option of control.value.options" [value]="option.value">-->
-			<!--            {{ option.label }}-->
-			<!--          </option>-->
-			<!--        </select>-->
-			<!--      </ng-container>-->
-
 			<div
 				*ngIf="form.get(control.key)?.dirty && form.get(control.key)?.hasError('required')"
 				class="input-error"

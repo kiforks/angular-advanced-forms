@@ -31,3 +31,9 @@ export interface DynamicFormConfig {
 		[key: string]: DynamicFormControl;
 	};
 }
+
+export interface DynamicFormControlData {
+  controlKey: string;
+  config: DynamicFormControl;
+}
+
