@@ -8,12 +8,7 @@
 		<h3 class="form-heading">{{ formConfig.description }}</h3>
 
 		<div *ngFor="let control of formConfig.controls | keyvalue" class="form-field">
-			<label [for]="control.key">{{ control.value.label }}</label>
-
-			<ng-container
-				[ngComponentOutlet]="getControlComponentOutlet(control.value.controlType)"
-				[ngComponentOutletInjector]="control.key | dynamicFormControlInjector : control.value"
-			></ng-container>
+			<ng-container [dynamicFormControl]="{ control: control.value, key: control.key }"></ng-container>
 
 			<div
 				*ngIf="form.get(control.key)?.dirty && form.get(control.key)?.hasError('required')"

@@ -1,17 +1,19 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DYNAMIC_FORM_CONTROL_DATA } from '../../tokens/dynamic-form-control-data.token';
+import { DynamicFormControlBase } from '../../classes/dynamic-form-control-base';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
 	selector: 'dynamic-form-select',
 	template: `
-		<select [id]="control.controlKey" [value]="control.config.value">
-			<option *ngFor="let option of control.config.options" [value]="option.value">{{ option.label }}</option>
-		</select>
+		<ng-container [formGroup]="formGroup">
+			<label [for]="data.key">{{ data.control.label }}</label>
+			<select [formControlName]="data.key" [id]="data.key" [value]="data.control.value">
+				<option *ngFor="let option of data.control.options" [value]="option.value">{{ option.label }}</option>
+			</select>
+		</ng-container>
 	`,
 	standalone: true,
-	imports: [CommonModule],
+	imports: [CommonModule, ReactiveFormsModule],
 })
-export class DynamicFormSelectComponent {
-	public readonly control = inject(DYNAMIC_FORM_CONTROL_DATA);
-}
+export class DynamicFormSelectComponent extends DynamicFormControlBase {}
