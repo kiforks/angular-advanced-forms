@@ -14,11 +14,11 @@ import { UniqueNicknameDirective } from '../../validators/unique-nickname.direct
 	selector: 'app-template-forms-page',
 	standalone: true,
 	imports: [CommonModule, FormsModule, BanWordsDirective, PasswordShouldMatchDirective, UniqueNicknameDirective],
-	templateUrl: './template-forms-page.component.html',
+	templateUrl: './template-forms.component.html',
 	styleUrls: ['../../../../../assets/scss/common-page.scss', '../../../../../assets/scss/common-form.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TemplateFormsPageComponent implements AfterViewInit {
+export class TemplateFormsComponent implements AfterViewInit {
 	@ViewChild(NgForm) private readonly form!: NgForm;
 
 	public readonly userInfo: User = {

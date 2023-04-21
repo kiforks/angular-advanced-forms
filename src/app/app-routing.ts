@@ -5,17 +5,25 @@ export const routes: Routes = [
 		path: '',
 		title: 'Template-Driven Forms Playground',
 		loadComponent: () =>
-			import(
-				'./modules/template-forms/pages/template-forms-page/template-forms-page.component'
-			).then(m => m.TemplateFormsPageComponent),
+			import('./modules/template-forms/pages/template-forms/template-forms.component').then(
+				m => m.TemplateFormsComponent
+			),
 	},
 	{
 		path: 'reactive-forms',
 		title: 'Reactive Forms Playground',
 		loadComponent: () =>
-			import(
-				'./modules/reactive-forms/pages/reactive-forms-page/reactive-forms-page.component'
-			).then(m => m.ReactiveFormsPageComponent),
+			import('./modules/reactive-forms/pages/reactive-forms/reactive-forms.component').then(
+				m => m.ReactiveFormsComponent
+			),
+	},
+	{
+		path: 'dynamic-forms',
+		title: 'Dynamic Forms Playground',
+		loadComponent: () =>
+			import('./modules/dynamic-form/pages/dynamic-form/dynamic-form.component').then(
+				m => m.DynamicFormComponent
+			),
 	},
 	{
 		path: 'custom-rating-picker',
@@ -29,8 +37,6 @@ export const routes: Routes = [
 		path: 'custom-select',
 		title: 'Custom Select Component Playground (Advanced)',
 		loadComponent: () =>
-			import('./modules/select/pages/select-layout/select-layout.component').then(
-				m => m.SelectLayout
-			),
+			import('./modules/select/pages/select-layout/select-layout.component').then(m => m.SelectLayout),
 	},
 ];

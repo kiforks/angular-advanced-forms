@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, OnDestroy, OnInit } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	CUSTOM_ELEMENTS_SCHEMA,
+	OnDestroy,
+	OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import '@polymer/paper-input/paper-textarea';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
@@ -20,12 +27,12 @@ import { Rating } from '../../interfaces/rating-picker.interface';
 export class RatingPickerLayoutComponent implements OnInit, OnDestroy {
 	private sub!: Subscription;
 
-	public readonly form = this.fb.group<Rating>({
+	public readonly form = this.formBuilder.group<Rating>({
 		reviewText: '',
 		reviewRating: null,
 	});
 
-	constructor(private fb: FormBuilder) {}
+	constructor(private readonly formBuilder: FormBuilder) {}
 
 	public ngOnInit(): void {
 		this.sub = this.form.valueChanges.subscribe(console.log);

@@ -24,15 +24,15 @@ import { UniqueNicknameValidator } from '../../validators/unique-nickname.valida
 	selector: 'app-reactive-forms-page',
 	standalone: true,
 	imports: [CommonModule, ReactiveFormsModule],
-	templateUrl: './reactive-forms-page.component.html',
+	templateUrl: './reactive-forms.component.html',
 	styleUrls: [
 		'../../../../../assets/scss/common-page.scss',
 		'../../../../../assets/scss/common-form.scss',
-		'./reactive-forms-page.component.scss',
+		'./reactive-forms.component.scss',
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ReactiveFormsPageComponent implements OnInit, OnDestroy {
+export class ReactiveFormsComponent implements OnInit, OnDestroy {
 	@ViewChild(FormGroupDirective) private readonly formGroup!: FormGroupDirective;
 
 	public readonly phoneLabels = ['Main', 'Mobile', 'Work', 'Home'];
