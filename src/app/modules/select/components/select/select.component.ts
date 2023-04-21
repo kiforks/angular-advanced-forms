@@ -35,7 +35,7 @@ import { merge, startWith, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { OptionComponent } from '../option/option.component';
 
 /** Interfaces */
-import { SelectValue } from '../../interfaces/select-value.interface';
+import { SelectValue } from '../../interfaces/select.interface';
 
 @Component({
 	selector: 'cfc-select',
