@@ -9,10 +9,11 @@ export type DynamicFormControls = {
 export interface DynamicFormControl<T = string> {
 	controlType: DynamicFormControlType;
 	type?: string;
+	order: number;
 	label: string;
 	value: T | null;
 	options?: DynamicFormOptions[];
-  controls?: DynamicFormControls;
+	controls?: DynamicFormControls;
 	validators?: {
 		[key in DynamicFormValidatorKeys]?: unknown;
 	};

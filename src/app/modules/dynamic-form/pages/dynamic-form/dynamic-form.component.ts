@@ -7,6 +7,7 @@ import { DynamicFormConfig } from '../../interfaces/dynamic-form.interface';
 import { banWords } from '../../../reactive-forms/validators/ban-words.validator';
 import { DynamicFormControl, DynamicFormControls } from '../../interfaces/dynamic-form-control.interface';
 import { DynamicFormControlDirective } from '../../directives/dynamic-form-control/dynamic-form-control.directive';
+import { DynamicFormHelper } from '../../helpers/dynamic-form.helper';
 
 @Component({
 	selector: 'dynamic-forms',
@@ -20,6 +21,8 @@ export class DynamicFormComponent implements OnInit {
 	public form!: FormGroup;
 
 	public formConfig$!: Observable<DynamicFormConfig>;
+
+	public readonly comparator = DynamicFormHelper.comparator;
 
 	private readonly formLoadingTrigger = new Subject<'user' | 'company'>();
 
