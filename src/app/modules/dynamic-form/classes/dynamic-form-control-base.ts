@@ -21,9 +21,10 @@ export class DynamicFormControlBase implements OnInit {
 		(this.parentGroupDir.control as FormGroup).addControl(this.data.key, this.formControl);
 	}
 
-	private resolveValidators({ validators = {} }: DynamicFormControl) {
+	private resolveValidators({ validators = {} }: DynamicFormControl): Validators {
 		return (Object.keys(validators) as Array<keyof typeof validators>).map(validatorKey => {
 			const validatorValue = validators[validatorKey];
+
 			if (validatorKey === 'required') {
 				return Validators.required;
 			}
