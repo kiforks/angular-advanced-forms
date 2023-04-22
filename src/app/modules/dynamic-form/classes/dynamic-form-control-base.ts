@@ -2,7 +2,7 @@ import { Directive, HostBinding, inject, OnInit } from '@angular/core';
 import { DYNAMIC_FORM_CONTROL_DATA } from '../tokens/dynamic-form-control-data.token';
 import { AbstractControl, ControlContainer, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DynamicFormControl } from '../interfaces/dynamic-form-control.interface';
-import { banWords } from '../../reactive-forms/validators/ban-words.validator';
+import { reactiveFormBanWordValidator } from '../../reactive-form/validation/validators/reactive-form-ban-word.validator';
 
 @Directive()
 export class DynamicFormControlBase implements OnInit {
@@ -42,7 +42,7 @@ export class DynamicFormControlBase implements OnInit {
 			}
 
 			if (validatorKey === 'banWords' && Array.isArray(validatorValue)) {
-				return banWords(validatorValue);
+				return reactiveFormBanWordValidator(validatorValue);
 			}
 
 			return Validators.nullValidator;

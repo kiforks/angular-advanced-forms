@@ -8,7 +8,7 @@ import { catchError, map, Observable, of } from 'rxjs';
 @Injectable({
 	providedIn: 'root',
 })
-export class UniqueNicknameValidator implements AsyncValidator {
+export class ReactiveFormUniqueNicknameValidatorService implements AsyncValidator {
 	constructor(private httpClient: HttpClient) {}
 
 	public validate({

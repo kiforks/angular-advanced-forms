@@ -2,11 +2,11 @@ import { Directive } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
 
 @Directive({
-	selector: '[passwordShouldMatch]',
+	selector: '[templateFormPasswordMatchValidator]',
 	standalone: true,
-	providers: [{ provide: NG_VALIDATORS, useExisting: PasswordShouldMatchDirective, multi: true }],
+	providers: [{ provide: NG_VALIDATORS, useExisting: TemplateFormPasswordMatchValidatorDirective, multi: true }],
 })
-export class PasswordShouldMatchDirective implements Validator {
+export class TemplateFormPasswordMatchValidatorDirective implements Validator {
 	public validate(control: AbstractControl<string>): ValidationErrors | null {
 		const password = control.get('password');
 		const confirmPassword = control.get('confirm-password');

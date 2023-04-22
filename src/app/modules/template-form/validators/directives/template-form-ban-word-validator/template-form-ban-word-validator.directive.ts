@@ -2,12 +2,12 @@ import { Directive, Input } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
 
 @Directive({
-	selector: '[banWords]',
+	selector: '[templateFormBanWordValidator]',
 	standalone: true,
-	providers: [{ provide: NG_VALIDATORS, useExisting: BanWordsDirective, multi: true }],
+	providers: [{ provide: NG_VALIDATORS, useExisting: TemplateFormBanWordValidatorDirective, multi: true }],
 })
-export class BanWordsDirective implements Validator {
-	@Input() public set banWords(value: string | string[]) {
+export class TemplateFormBanWordValidatorDirective implements Validator {
+	@Input('templateFormBanWordValidator') public set banWords(value: string | string[]) {
 		this.bannedWords = Array.isArray(value) ? value : [value];
 
 		this.onChange();

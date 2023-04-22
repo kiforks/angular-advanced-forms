@@ -5,16 +5,16 @@ export const routes: Routes = [
 		path: '',
 		title: 'Template-Driven Forms Playground',
 		loadComponent: () =>
-			import('./modules/template-forms/pages/template-forms/template-forms.component').then(
-				m => m.TemplateFormsComponent
+			import('./modules/template-form/pages/template-form/template-form.component').then(
+				m => m.TemplateFormComponent
 			),
 	},
 	{
 		path: 'reactive-forms',
 		title: 'Reactive Forms Playground',
 		loadComponent: () =>
-			import('./modules/reactive-forms/pages/reactive-forms/reactive-forms.component').then(
-				m => m.ReactiveFormsComponent
+			import('./modules/reactive-form/pages/reactive-form/reactive-form.component').then(
+				m => m.ReactiveFormComponent
 			),
 	},
 	{

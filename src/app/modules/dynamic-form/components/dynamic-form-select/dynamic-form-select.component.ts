@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { DynamicFormControlBase } from '../../classes/dynamic-form-control-base';
-import { ReactiveFormsModule } from '@angular/forms';
-import { dynamicFormControlProvider } from '../../providers/dynamic-form-control.provider';
+import { dynamicFormControlDeps, dynamicFormControlProvider } from '../../providers/dynamic-form-control.provider';
 
 @Component({
 	selector: 'dynamic-form-select',
@@ -13,7 +11,7 @@ import { dynamicFormControlProvider } from '../../providers/dynamic-form-control
 		</select>
 	`,
 	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule],
+	imports: [dynamicFormControlDeps],
 	viewProviders: [dynamicFormControlProvider],
 })
 export class DynamicFormSelectComponent extends DynamicFormControlBase {}

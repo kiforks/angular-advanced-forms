@@ -6,17 +6,17 @@ import { AbstractControl, AsyncValidator, NG_ASYNC_VALIDATORS, ValidationErrors 
 import { catchError, finalize, map, Observable, of } from 'rxjs';
 
 @Directive({
-	selector: '[uniqueNickname]',
+	selector: '[templateFormUniqueNicknameValidator]',
 	standalone: true,
 	providers: [
 		{
 			provide: NG_ASYNC_VALIDATORS,
 			multi: true,
-			useExisting: UniqueNicknameDirective,
+			useExisting: TemplateFormUniqueNicknameValidatorDirective,
 		},
 	],
 })
-export class UniqueNicknameDirective implements AsyncValidator {
+export class TemplateFormUniqueNicknameValidatorDirective implements AsyncValidator {
 	constructor(private httpClient: HttpClient, private cdr: ChangeDetectorRef) {}
 
 	public validate({

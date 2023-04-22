@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
 import { DynamicFormControlBase } from '../../classes/dynamic-form-control-base';
-import { dynamicFormControlProvider } from '../../providers/dynamic-form-control.provider';
+import { dynamicFormControlDeps, dynamicFormControlProvider } from '../../providers/dynamic-form-control.provider';
 
 @Component({
 	selector: 'dynamic-form-checkbox',
@@ -20,7 +18,7 @@ import { dynamicFormControlProvider } from '../../providers/dynamic-form-control
 		`,
 	],
 	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule],
+	imports: [dynamicFormControlDeps],
 	viewProviders: [dynamicFormControlProvider],
 })
 export class DynamicFormCheckboxComponent extends DynamicFormControlBase {}

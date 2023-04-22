@@ -2,12 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { CommonModule } from '@angular/common';
 
 /** Forms */
-import {
-	FormGroupDirective,
-	FormBuilder,
-	ReactiveFormsModule,
-	Validators,
-} from '@angular/forms';
+import { FormGroupDirective, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 /** RxJS */
 import { bufferCount, filter, Observable, startWith, Subscription, tap } from 'rxjs';
@@ -16,23 +11,26 @@ import { bufferCount, filter, Observable, startWith, Subscription, tap } from 'r
 import { UserSkillsService } from '../../../../core/services/user-skills.service';
 
 /** Validators */
-import { banWords } from '../../validators/ban-words.validator';
-import { passwordShouldMatch } from '../../validators/password-should-match.validator';
-import { UniqueNicknameValidator } from '../../validators/unique-nickname.validator';
+import { reactiveFormBanWordValidator } from '../../validation/validators/reactive-form-ban-word.validator';
+import { reactiveFormPasswordMatchValidator } from '../../validation/validators/reactive-form-password-match.validator';
+import { ReactiveFormUniqueNicknameValidatorService } from '../../validation/services/reactive-form-unique-nickname-validator/reactive-form-unique-nickname-validator.service';
+import { ValidationErrorMessageDirective } from '../../../../core/modules/validation/directives/validation-error-message/validation-error-message.directive';
+import { ValidationOnTouchedErrorDirective } from '../../../../core/modules/validation/directives/validation-on-touched-error/validation-on-touched-error.directive';
 
 @Component({
-	selector: 'app-reactive-forms-page',
+	selector: 'reactive-form',
 	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule],
-	templateUrl: './reactive-forms.component.html',
+	imports: [CommonModule, ReactiveFormsModule, ValidationErrorMessageDirective, ValidationOnTouchedErrorDirective],
+	templateUrl: './reactive-form.component.html',
 	styleUrls: [
 		'../../../../../assets/scss/common-page.scss',
 		'../../../../../assets/scss/common-form.scss',
-		'./reactive-forms.component.scss',
+		'./reactive-form.component.scss',
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	hostDirectives: [ValidationOnTouchedErrorDirective],
 })
-export class ReactiveFormsComponent implements OnInit, OnDestroy {
+export class ReactiveFormComponent implements OnInit, OnDestroy {
 	@ViewChild(FormGroupDirective) private readonly formGroup!: FormGroupDirective;
 
 	public readonly phoneLabels = ['Main', 'Mobile', 'Work', 'Home'];
@@ -41,7 +39,10 @@ export class ReactiveFormsComponent implements OnInit, OnDestroy {
 	public skills$!: Observable<string[]>;
 
 	public readonly form = this.formBuilder.group({
-		firstName: ['Kostya', [Validators.required, Validators.minLength(4), banWords(['test', 'dummy'])]],
+		firstName: [
+			'',
+			[Validators.required, Validators.minLength(4), reactiveFormBanWordValidator(['test', 'dummy'])],
+		],
 		lastName: ['Kifor', [Validators.required, Validators.minLength(2)]],
 		nickname: [
 			'kskifor',
@@ -50,14 +51,14 @@ export class ReactiveFormsComponent implements OnInit, OnDestroy {
 					Validators.required,
 					Validators.minLength(2),
 					Validators.pattern(/^[\w.]+$/),
-					banWords(['dummy', 'test']),
+					reactiveFormBanWordValidator(['dummy', 'test']),
 				],
 				asyncValidators: [this.uniqueNicknameValidator.validate.bind(this.uniqueNicknameValidator)],
 				updateOn: 'blur',
 			},
 		],
 		email: ['k.kifor@tenantcloud.com', [Validators.email, Validators.required]],
-		yearOfBirth: this.formBuilder.nonNullable.control(2010, Validators.required),
+		yearOfBirth: this.formBuilder.nonNullable.control(1996, Validators.required),
 		passport: ['', [Validators.pattern(/^[A-Z]{2}[0-9]{6}$/)]],
 		address: this.formBuilder.nonNullable.group({
 			fullAddress: ['Address', Validators.required],
@@ -77,7 +78,7 @@ export class ReactiveFormsComponent implements OnInit, OnDestroy {
 				confirmPassword: '123456',
 			},
 			{
-				validators: passwordShouldMatch,
+				validators: reactiveFormPasswordMatchValidator,
 			}
 		),
 	});
@@ -89,7 +90,7 @@ export class ReactiveFormsComponent implements OnInit, OnDestroy {
 	constructor(
 		private readonly userSkillsService: UserSkillsService,
 		private readonly formBuilder: FormBuilder,
-		private readonly uniqueNicknameValidator: UniqueNicknameValidator,
+		private readonly uniqueNicknameValidator: ReactiveFormUniqueNicknameValidatorService,
 		private readonly cdr: ChangeDetectorRef
 	) {}
 
@@ -105,7 +106,7 @@ export class ReactiveFormsComponent implements OnInit, OnDestroy {
 	public onAddPhoneClick() {
 		this.form.controls.phones.insert(
 			0,
-		this.formBuilder.group({
+			this.formBuilder.group({
 				label: this.formBuilder.control(this.phoneLabels[0], { nonNullable: true }),
 				phone: this.formBuilder.control(''),
 			})
@@ -119,6 +120,8 @@ export class ReactiveFormsComponent implements OnInit, OnDestroy {
 	public onSubmit(e: Event) {
 		console.log(e);
 		console.log(this.form.value);
+
+    if (this.form.invalid) return;
 
 		this.initialFormValues = this.form.value;
 		this.formGroup.resetForm(this.form.value);

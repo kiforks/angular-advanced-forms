@@ -1,0 +1,157 @@
+<form
+	class="form"
+	#form="ngForm"
+	[ngFormOptions]="{ updateOn: 'submit' }"
+	(reset)="onReset($event)"
+	(ngSubmit)="onSubmitForm(form, $event)"
+>
+	<!-- First name -->
+	<div class="form-field">
+		<label for="name">First Name</label>
+		<input
+			banWords="test"
+			required
+			minlength="2"
+			name="first-name"
+			type="text"
+			id="name"
+			placeholder="Enter your name"
+			[(ngModel)]="userInfo.firstName"
+		/>
+	</div>
+
+	<!-- Last name -->
+	<div class="form-field">
+		<label for="last-name">Last Name</label>
+		<input
+			required
+			minlength="2"
+			name="last-name"
+			type="text"
+			id="last-name"
+			placeholder="Enter your last name"
+			[(ngModel)]="userInfo.lastName"
+		/>
+	</div>
+
+	<!-- Nickname -->
+	<div class="form-field">
+		<label for="nickname">Nickname</label>
+		<input
+			#nickname="ngModel"
+			templateFormUniqueNicknameValidator
+			required
+			minlength="3"
+			pattern="^[\w.]+$"
+			name="nickname"
+			type="text"
+			id="nickname"
+			placeholder="Come up with a nickname"
+			[ngModelOptions]="{ updateOn: 'blur' }"
+			[templateFormBanWordValidator]="isAdult ? ['test', 'test_test', 'dummy'] : []"
+			[(ngModel)]="userInfo.nickname"
+		/>
+		<div *ngIf="nickname.pending" class="input-info">Checking...</div>
+	</div>
+
+	<!-- Email -->
+	<div class="form-field">
+		<label for="email">Email</label>
+		<input
+			email
+			required
+			name="email"
+			type="email"
+			id="email"
+			placeholder="Provide your email"
+			[(ngModel)]="userInfo.email"
+		/>
+	</div>
+
+	<!-- Year of birth -->
+	<div class="form-field-inline-group">
+		<div class="form-field form-field-small">
+			<label for="year-of-birth">Year of birth</label>
+			<select required id="year-of-birth" name="year-of-birth" [(ngModel)]="userInfo.yearOfBirth">
+				<option *ngFor="let year of years" [value]="year">{{ year }}</option>
+			</select>
+		</div>
+		<div class="form-field form-field-small">
+			<label for="passport">Passport Number</label>
+			<input
+				pattern="^[A-Z]{2}[0-9]{6}$"
+				name="passport"
+				type="text"
+				id="passport"
+				placeholder="Provide Passport Data"
+				[required]="isAdult"
+				[(ngModel)]="userInfo.passport"
+			/>
+		</div>
+	</div>
+
+	<!-- Address -->
+	<fieldset ngModelGroup="address">
+		<legend>Address</legend>
+		<div class="form-field">
+			<label for="full-address">Full Adress</label>
+			<input
+				required
+				name="full-address"
+				type="text"
+				id="full-address"
+				placeholder="Street name and house number"
+				[(ngModel)]="userInfo.fullAddress"
+			/>
+		</div>
+		<div class="form-field">
+			<label for="city">City</label>
+			<input required name="city" type="text" id="city" placeholder="City" [(ngModel)]="userInfo.city" />
+		</div>
+		<div class="form-field">
+			<label for="post-code">Post Code</label>
+			<input
+				required
+				name="post-code"
+				type="number"
+				id="post-code"
+				placeholder="Post code"
+				[(ngModel)]="userInfo.postCode"
+			/>
+		</div>
+	</fieldset>
+
+	<!-- Password -->
+	<fieldset ngModelGroup="password" templateFormPasswordMatchValidato>
+		<legend>User Password</legend>
+		<div class="form-field">
+			<label for="password">Password</label>
+			<input
+				required
+				minlength="6"
+				name="password"
+				type="password"
+				id="password"
+				placeholder="Enter user's password"
+				[(ngModel)]="userInfo.password"
+			/>
+		</div>
+		<div class="form-field">
+			<label for="confirm-password">Confirm password</label>
+			<input
+				name="confirm-password"
+				type="password"
+				id="confirm-password"
+				placeholder="Confirm the password"
+				[(ngModel)]="userInfo.confirmPassword"
+			/>
+		</div>
+	</fieldset>
+
+	<!-- Save -->
+	<button>Save</button>
+
+	<!-- Resets -->
+	<button class="reset-button" type="reset">Reset</button>
+	<button class="reset-button" type="button" (click)="onResetInitialClick($event)">Initial data</button>
+</form>

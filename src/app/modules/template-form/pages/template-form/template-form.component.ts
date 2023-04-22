@@ -6,29 +6,38 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { User } from '../../../../core/interfaces/user';
 
 /** Directives */
-import { BanWordsDirective } from '../../validators/ban-words.directive';
-import { PasswordShouldMatchDirective } from '../../validators/password-should-match.directive';
-import { UniqueNicknameDirective } from '../../validators/unique-nickname.directive';
+import { TemplateFormPasswordMatchValidatorDirective } from '../../validators/directives/template-form-password-match-validator/template-form-password-match-validator.directive';
+import { TemplateFormUniqueNicknameValidatorDirective } from '../../validators/directives/template-form-unique-nickname-validator/template-form-unique-nickname-validator.directive';
+import { ValidationErrorMessageDirective } from '../../../../core/modules/validation/directives/validation-error-message/validation-error-message.directive';
+import { TemplateFormBanWordValidatorDirective } from '../../validators/directives/template-form-ban-word-validator/template-form-ban-word-validator.directive';
 
 @Component({
-	selector: 'app-template-forms-page',
+	selector: 'template-form',
 	standalone: true,
-	imports: [CommonModule, FormsModule, BanWordsDirective, PasswordShouldMatchDirective, UniqueNicknameDirective],
-	templateUrl: './template-forms.component.html',
+	imports: [
+		CommonModule,
+		FormsModule,
+		TemplateFormPasswordMatchValidatorDirective,
+		TemplateFormPasswordMatchValidatorDirective,
+		TemplateFormUniqueNicknameValidatorDirective,
+		ValidationErrorMessageDirective,
+		TemplateFormBanWordValidatorDirective,
+	],
+	templateUrl: './template-form.component.html',
 	styleUrls: ['../../../../../assets/scss/common-page.scss', '../../../../../assets/scss/common-form.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TemplateFormsComponent implements AfterViewInit {
+export class TemplateFormComponent implements AfterViewInit {
 	@ViewChild(NgForm) private readonly form!: NgForm;
 
 	public readonly userInfo: User = {
-		firstName: 'Kostya',
-		lastName: 'Kifor',
+		firstName: '',
+		lastName: '',
 		nickname: 'kifor.kostya',
 		email: 'k.kifor@tenantcloud.com',
 		yearOfBirth: 1996,
-		passport: 'AB123456',
-		fullAddress: 'Some street',
+		passport: '',
+		fullAddress: '',
 		city: 'Ivano-Frankivsk',
 		postCode: 123456,
 		password: '123456',
@@ -58,6 +67,7 @@ export class TemplateFormsComponent implements AfterViewInit {
 	}
 
 	public onSubmitForm(form: any, e: SubmitEvent) {
+		if (this.form.invalid) return;
 		console.log(e);
 		console.log(form.form.controls);
 
