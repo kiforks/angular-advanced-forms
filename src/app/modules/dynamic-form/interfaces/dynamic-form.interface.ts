@@ -1,4 +1,7 @@
+/** Forms */
 import { ValidatorFn, Validators } from '@angular/forms';
+
+/** Interfaces */
 import { DynamicFormControl, DynamicFormControls } from './dynamic-form-control.interface';
 
 export type DynamicFormValidatorKeys = keyof Omit<

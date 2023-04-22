@@ -1,4 +1,6 @@
 import { inject, Pipe, PipeTransform } from '@angular/core';
+
+/** Tokens */
 import { VALIDATION_ERROR_MESSAGES } from '../../tokens/validation-error-message.token';
 
 @Pipe({

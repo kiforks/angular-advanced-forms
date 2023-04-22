@@ -1,12 +1,7 @@
 <form [formGroup]="form" (reset)="onReset($event)" (ngSubmit)="onSubmit($event)" class="form">
 	<div class="form-field">
 		<label for="name">First Name</label>
-		<input
-			formControlName="firstName"
-			type="text"
-			id="name"
-			placeholder="Enter your name"
-		/>
+		<input formControlName="firstName" type="text" id="name" placeholder="Enter your name" />
 	</div>
 	<div class="form-field">
 		<label for="last-name">Last Name</label>
@@ -80,7 +75,7 @@
 			</div>
 		</ng-container>
 	</fieldset>
-	<fieldset formGroupName="password">
+	<fieldset formGroupName="password" [errorViewContainerRef]="container.viewContainerRef">
 		<legend>Password</legend>
 		<div class="form-field">
 			<label for="password">Create Password</label>
@@ -89,17 +84,17 @@
 		<div class="form-field">
 			<label for="confirm-password">Confirm Password</label>
 			<input
-        validationNoErrors
+				validationNoErrors
 				formControlName="confirmPassword"
 				type="password"
 				id="confirm-password"
 				placeholder="Enter password..."
 			/>
+			<ng-container validationErrorViewContainer #container="validationErrorViewContainer"></ng-container>
 		</div>
 	</fieldset>
 	<button>Save</button>
 	<button class="reset-button" type="reset">Reset</button>
-	<button class="reset-button" type="button" (click)="onInitialDataClick()">Initial data</button>
 </form>
 
 <ng-template #loading>

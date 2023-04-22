@@ -9,14 +9,17 @@ import { bufferCount, filter, Observable, startWith, Subscription, tap } from 'r
 
 /** Services */
 import { UserSkillsService } from '../../../../core/services/user-skills.service';
+import { ReactiveFormUniqueNicknameValidatorService } from '../../validation/services/reactive-form-unique-nickname-validator/reactive-form-unique-nickname-validator.service';
 
 /** Validators */
 import { reactiveFormBanWordValidator } from '../../validation/validators/reactive-form-ban-word.validator';
 import { reactiveFormPasswordMatchValidator } from '../../validation/validators/reactive-form-password-match.validator';
-import { ReactiveFormUniqueNicknameValidatorService } from '../../validation/services/reactive-form-unique-nickname-validator/reactive-form-unique-nickname-validator.service';
+
+/** Directives */
 import { ValidationErrorMessageDirective } from '../../../../core/modules/validation/directives/validation-error-message/validation-error-message.directive';
 import { ValidationOnTouchedErrorDirective } from '../../../../core/modules/validation/directives/validation-on-touched-error/validation-on-touched-error.directive';
 import { ValidationNoErrorsDirective } from '../../../../core/modules/validation/directives/validation-no-errors/validation-no-errors.directive';
+import { ValidationErrorViewContainerDirective } from '../../../../core/modules/validation/directives/validation-error-view-container/validation-error-view-container.directive';
 
 @Component({
 	selector: 'reactive-form',
@@ -27,6 +30,7 @@ import { ValidationNoErrorsDirective } from '../../../../core/modules/validation
 		ValidationErrorMessageDirective,
 		ValidationOnTouchedErrorDirective,
 		ValidationNoErrorsDirective,
+		ValidationErrorViewContainerDirective,
 	],
 	templateUrl: './reactive-form.component.html',
 	styleUrls: [
@@ -50,9 +54,9 @@ export class ReactiveFormComponent implements OnInit, OnDestroy {
 			'',
 			[Validators.required, Validators.minLength(4), reactiveFormBanWordValidator(['test', 'dummy'])],
 		],
-		lastName: ['Kifor', [Validators.required, Validators.minLength(2)]],
+		lastName: ['', [Validators.required, Validators.minLength(2)]],
 		nickname: [
-			'kskifor',
+			'',
 			{
 				validators: [
 					Validators.required,
@@ -64,25 +68,25 @@ export class ReactiveFormComponent implements OnInit, OnDestroy {
 				updateOn: 'blur',
 			},
 		],
-		email: ['k.kifor@tenantcloud.com', [Validators.email, Validators.required]],
-		yearOfBirth: this.formBuilder.nonNullable.control(1996, Validators.required),
+		email: ['', [Validators.email, Validators.required]],
+		yearOfBirth: this.formBuilder.nonNullable.control(0, Validators.required),
 		passport: ['', [Validators.pattern(/^[A-Z]{2}[0-9]{6}$/)]],
 		address: this.formBuilder.nonNullable.group({
-			fullAddress: ['Address', Validators.required],
-			city: ['City', Validators.required],
-			postCode: ['002342', Validators.required],
+			fullAddress: ['', Validators.required],
+			city: ['', Validators.required],
+			postCode: ['', Validators.required],
 		}),
 		phones: this.formBuilder.array([
 			this.formBuilder.group({
 				label: this.formBuilder.nonNullable.control(this.phoneLabels[0]),
-				phone: '+380637575096',
+				phone: '',
 			}),
 		]),
 		skills: this.formBuilder.record<boolean>({}),
 		password: this.formBuilder.group(
 			{
-				password: ['123456', [Validators.required, Validators.minLength(6)]],
-				confirmPassword: '123456',
+				password: ['', [Validators.required, Validators.minLength(6)]],
+				confirmPassword: '',
 			},
 			{
 				validators: reactiveFormPasswordMatchValidator,
@@ -139,10 +143,6 @@ export class ReactiveFormComponent implements OnInit, OnDestroy {
 
 		e.preventDefault();
 		this.formGroup.resetForm({});
-	}
-
-	public onInitialDataClick(): void {
-		this.formGroup.resetForm(this.initialFormValues);
 	}
 
 	private getYears() {

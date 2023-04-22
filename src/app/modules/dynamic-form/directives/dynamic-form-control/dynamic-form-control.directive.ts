@@ -1,7 +1,11 @@
 import { ChangeDetectorRef, Directive, inject, Injector, Input, OnChanges, ViewContainerRef } from '@angular/core';
+
+/** Interfaces */
 import { DynamicFormControlData } from '../../interfaces/dynamic-form.interface';
-import { DYNAMIC_FORM_CONTROL_DATA } from '../../tokens/dynamic-form-control-data.token';
 import { DynamicFormControlLazyComponents } from '../../interfaces/dynamic-form-control.interface';
+
+/** Tokens */
+import { DYNAMIC_FORM_CONTROL_DATA } from '../../tokens/dynamic-form-control-data.token';
 
 @Directive({
 	selector: '[dynamicFormControl]',
@@ -35,6 +39,7 @@ export class DynamicFormControlDirective implements OnChanges {
 
 	public ngOnChanges(): void {
 		const { control, key } = this.data;
+
 		const data: DynamicFormControlData = { control, key };
 
 		const injector = Injector.create({
@@ -52,7 +57,7 @@ export class DynamicFormControlDirective implements OnChanges {
 				injector,
 			});
 
-      this.cdr.detectChanges();
+			this.cdr.detectChanges();
 		});
 	}
 }

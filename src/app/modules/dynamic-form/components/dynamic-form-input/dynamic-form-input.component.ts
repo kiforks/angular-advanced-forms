@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
+
+/** Classes */
 import { DynamicFormControlBase } from '../../classes/dynamic-form-control-base';
+
+/** Providers */
 import { dynamicFormControlDeps, dynamicFormControlProvider } from '../../providers/dynamic-form-control.provider';
+
+/** Directives */
 import { ValidationOnTouchedErrorDirective } from '../../../../core/modules/validation/directives/validation-on-touched-error/validation-on-touched-error.directive';
 
 @Component({

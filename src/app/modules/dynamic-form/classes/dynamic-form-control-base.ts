@@ -1,14 +1,22 @@
 import { Directive, HostBinding, inject, OnInit } from '@angular/core';
+
+/** Tokens */
 import { DYNAMIC_FORM_CONTROL_DATA } from '../tokens/dynamic-form-control-data.token';
+
+/** Forms */
 import { AbstractControl, ControlContainer, FormControl, FormGroup, Validators } from '@angular/forms';
+
+/** Interface */
 import { DynamicFormControl } from '../interfaces/dynamic-form-control.interface';
+
+/** Interfaces */
 import { reactiveFormBanWordValidator } from '../../reactive-form/validation/validators/reactive-form-ban-word.validator';
 
 @Directive()
 export class DynamicFormControlBase implements OnInit {
 	@HostBinding('class') public hostClass = 'form-field';
 
-	public readonly data = inject(DYNAMIC_FORM_CONTROL_DATA);
+	protected readonly data = inject(DYNAMIC_FORM_CONTROL_DATA);
 
 	protected readonly formControl: AbstractControl = new FormControl(
 		this.data.control.value,

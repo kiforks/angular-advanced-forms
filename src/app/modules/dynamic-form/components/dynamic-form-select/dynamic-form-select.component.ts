@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
+
+/** Classes */
 import { DynamicFormControlBase } from '../../classes/dynamic-form-control-base';
+
+/** Providers */
 import { dynamicFormControlDeps, dynamicFormControlProvider } from '../../providers/dynamic-form-control.provider';
 
 @Component({

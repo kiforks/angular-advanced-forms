@@ -1,10 +1,24 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+
+/** RxJS */
 import { map, Observable, Subject, switchMap, tap } from 'rxjs';
+
+/** Modules */
 import { CommonModule } from '@angular/common';
+
+/** HTTP */
 import { HttpClient } from '@angular/common/http';
+
+/** Forms */
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+
+/** Interfaces */
 import { DynamicFormConfig } from '../../interfaces/dynamic-form.interface';
+
+/** Directives */
 import { DynamicFormControlDirective } from '../../directives/dynamic-form-control/dynamic-form-control.directive';
+
+/** Helpers */
 import { DynamicFormHelper } from '../../helpers/dynamic-form.helper';
 
 @Component({

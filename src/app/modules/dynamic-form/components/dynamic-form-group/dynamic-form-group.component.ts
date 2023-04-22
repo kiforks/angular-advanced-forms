@@ -1,9 +1,21 @@
 import { Component, HostBinding } from '@angular/core';
+
+/** Modules */
 import { CommonModule } from '@angular/common';
+
+/** Forms */
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+
+/** Classes */
 import { DynamicFormControlBase } from '../../classes/dynamic-form-control-base';
+
+/** Directives */
 import { DynamicFormControlDirective } from '../../directives/dynamic-form-control/dynamic-form-control.directive';
+
+/** Providers */
 import { dynamicFormControlProvider } from '../../providers/dynamic-form-control.provider';
+
+/** Helpers */
 import { DynamicFormHelper } from '../../helpers/dynamic-form.helper';
 
 @Component({
@@ -23,7 +35,7 @@ import { DynamicFormHelper } from '../../helpers/dynamic-form.helper';
 export class DynamicFormGroupComponent extends DynamicFormControlBase {
 	@HostBinding('class') public override hostClass = 'form-field-group';
 
-	public readonly comparator = DynamicFormHelper.comparator;
+	protected readonly comparator = DynamicFormHelper.comparator;
 
-  protected override readonly formControl = new FormGroup({});
+	protected override readonly formControl = new FormGroup({});
 }

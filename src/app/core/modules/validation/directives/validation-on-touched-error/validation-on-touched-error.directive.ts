@@ -1,7 +1,12 @@
 import { Directive } from '@angular/core';
 
+/** Forms */
 import { AbstractControl, FormGroupDirective, NgForm } from '@angular/forms';
+
+/** Tokens */
 import { VALIDATION_ERROR_STATE_MATCHER } from '../../tokens/validation-error-state-matcher.token';
+
+/** Interfaces */
 import { ValidationErrorStateMatcher } from '../../interfaces/validation-error-state-matcher.interface';
 
 @Directive({
@@ -11,6 +16,6 @@ import { ValidationErrorStateMatcher } from '../../interfaces/validation-error-s
 })
 export class ValidationOnTouchedErrorDirective implements ValidationErrorStateMatcher {
 	public isErrorVisible(control: AbstractControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    return Boolean(control && control.invalid && (control.touched || (form && form.submitted)));
+		return Boolean(control && control?.invalid && (control.touched || (form && form.submitted)));
 	}
 }
