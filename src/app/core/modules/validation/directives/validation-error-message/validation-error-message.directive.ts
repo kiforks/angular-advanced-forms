@@ -91,6 +91,6 @@ export class ValidationErrorMessageDirective implements OnInit, OnDestroy, Valid
 	}
 
 	public isErrorVisible(control: AbstractControl | null, form: FormGroupDirective | NgForm | null): boolean {
-		return Boolean(control && control.invalid && (control.dirty || (form && form.submitted)));
+        return Boolean(control && control.invalid && (control.dirty || (form && form.submitted)));
 	}
 }

@@ -4,7 +4,7 @@
 </div>
 
 <div *ngIf="formConfig$ | async as formConfig" class="dynamic-form-container">
-	<form [formGroup]="formConfig.form" (ngSubmit)="onSubmit(formConfig.form)">
+	<form [formGroup]="formConfig.form" (ngSubmit)="onSubmit(formConfig.form, $event)">
 		<h3 class="form-heading">{{ formConfig.config.description }}</h3>
 
 		<ng-container *ngFor="let control of formConfig.config.controls | keyvalue : comparator">

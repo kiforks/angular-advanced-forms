@@ -38,7 +38,7 @@ export class DynamicFormControlDirective implements OnChanges {
 	constructor(private readonly viewContainerRef: ViewContainerRef, private readonly cdr: ChangeDetectorRef) {}
 
 	public ngOnChanges(): void {
-		const { control, key } = this.data;
+        const { control, key } = this.data;
 
 		const data: DynamicFormControlData = { control, key };
 

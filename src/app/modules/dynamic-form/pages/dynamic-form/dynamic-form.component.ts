@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 
 /** RxJS */
 import { map, Observable, Subject, switchMap, tap } from 'rxjs';
@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
 /** Forms */
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormGroupDirective, ReactiveFormsModule } from '@angular/forms';
 
 /** Interfaces */
 import { DynamicFormConfig } from '../../interfaces/dynamic-form.interface';
@@ -30,6 +30,8 @@ import { DynamicFormHelper } from '../../helpers/dynamic-form.helper';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicFormComponent implements OnInit {
+	@ViewChild(FormGroupDirective) private readonly formGroup!: FormGroupDirective;
+
 	public form!: FormGroup;
 
 	public formConfig$!: Observable<{ form: FormGroup; config: DynamicFormConfig }>;
@@ -58,8 +60,10 @@ export class DynamicFormComponent implements OnInit {
 		this.formLoadingTrigger.next('company');
 	}
 
-	public onSubmit(form: FormGroup) {
-		console.log('Submitted data: ', form.value);
-		form.reset();
+	public onSubmit(form: FormGroup, e: Event) {
+        console.log(form.value);
+        e.preventDefault();
+
+		this.formGroup.resetForm();
 	}
 }
