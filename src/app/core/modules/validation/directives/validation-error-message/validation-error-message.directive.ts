@@ -5,9 +5,16 @@ import { ValidationControlErrorComponent } from '../../components/validation-con
 import { DynamicFormGroupComponent } from '../../../../../modules/dynamic-form/components/dynamic-form-group/dynamic-form-group.component';
 import { VALIDATION_ERROR_STATE_MATCHER } from '../../tokens/validation-error-state-matcher.token';
 import { ValidationErrorStateMatcher } from '../../interfaces/validation-error-state-matcher.interface';
+import { VALIDATION_VIEW_CONTAINER_REF } from '../../tokens/validation-view-container-ref.token';
 
 @Directive({
-	selector: '[ngModel],[formControl],[formControlName],[formGroupName],[ngModelGroup]',
+	selector: `
+    [ngModel]:not([validationNoErrors]),
+    [formControl]:not([validationNoErrors]),
+    [formControlName]:not([validationNoErrors]),
+    [formGroupName]:not([validationNoErrors]),
+    [ngModelGroup]:not([validationNoErrors])
+  `,
 	standalone: true,
 })
 export class ValidationErrorMessageDirective implements OnInit, OnDestroy, ValidationErrorStateMatcher {
@@ -16,6 +23,10 @@ export class ValidationErrorMessageDirective implements OnInit, OnDestroy, Valid
 	private readonly parentFormGroup = inject(ControlContainer, { skipSelf: true, optional: true });
 	private readonly errorStateMatcher: ValidationErrorStateMatcher =
 		inject(VALIDATION_ERROR_STATE_MATCHER, { optional: true }) || this;
+	private readonly parentViewContainerRef = inject(VALIDATION_VIEW_CONTAINER_REF, {
+		skipSelf: true,
+		optional: true,
+	});
 
 	private componentRef: ComponentRef<ValidationControlErrorComponent> | null = null;
 	private errorMessageTrigger!: Subscription;
@@ -38,7 +49,11 @@ export class ValidationErrorMessageDirective implements OnInit, OnDestroy, Valid
 
 	private renderComponent(): void {
 		if (!this.componentRef) {
-			this.componentRef = this.viewContainerRef.createComponent(ValidationControlErrorComponent);
+			const viewContainerRef = this.parentViewContainerRef
+				? this.parentViewContainerRef.viewContainerRef
+				: this.viewContainerRef;
+
+			this.componentRef = viewContainerRef.createComponent(ValidationControlErrorComponent);
 
 			this.componentRef.changeDetectorRef.markForCheck();
 		}
@@ -73,6 +88,6 @@ export class ValidationErrorMessageDirective implements OnInit, OnDestroy, Valid
 	}
 
 	public isErrorVisible(control: AbstractControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    return Boolean(control && control.invalid && (control.dirty || (form && form.submitted)));
+		return Boolean(control && control.invalid && (control.dirty || (form && form.submitted)));
 	}
 }

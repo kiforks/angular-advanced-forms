@@ -11,6 +11,7 @@ import { TemplateFormUniqueNicknameValidatorDirective } from '../../validators/d
 import { TemplateFormBanWordValidatorDirective } from '../../validators/directives/template-form-ban-word-validator/template-form-ban-word-validator.directive';
 import { ValidationErrorMessageDirective } from '../../../../core/modules/validation/directives/validation-error-message/validation-error-message.directive';
 import { ValidationOnTouchedErrorDirective } from '../../../../core/modules/validation/directives/validation-on-touched-error/validation-on-touched-error.directive';
+import { ValidationNoErrorsDirective } from '../../../../core/modules/validation/directives/validation-no-errors/validation-no-errors.directive';
 
 @Component({
 	selector: 'template-form',
@@ -24,6 +25,7 @@ import { ValidationOnTouchedErrorDirective } from '../../../../core/modules/vali
 		TemplateFormBanWordValidatorDirective,
 		ValidationErrorMessageDirective,
 		ValidationOnTouchedErrorDirective,
+		ValidationNoErrorsDirective,
 	],
 	templateUrl: './template-form.component.html',
 	styleUrls: ['../../../../../assets/scss/common-page.scss', '../../../../../assets/scss/common-form.scss'],

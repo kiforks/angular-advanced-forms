@@ -16,11 +16,18 @@ import { reactiveFormPasswordMatchValidator } from '../../validation/validators/
 import { ReactiveFormUniqueNicknameValidatorService } from '../../validation/services/reactive-form-unique-nickname-validator/reactive-form-unique-nickname-validator.service';
 import { ValidationErrorMessageDirective } from '../../../../core/modules/validation/directives/validation-error-message/validation-error-message.directive';
 import { ValidationOnTouchedErrorDirective } from '../../../../core/modules/validation/directives/validation-on-touched-error/validation-on-touched-error.directive';
+import { ValidationNoErrorsDirective } from '../../../../core/modules/validation/directives/validation-no-errors/validation-no-errors.directive';
 
 @Component({
 	selector: 'reactive-form',
 	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, ValidationErrorMessageDirective, ValidationOnTouchedErrorDirective],
+	imports: [
+		CommonModule,
+		ReactiveFormsModule,
+		ValidationErrorMessageDirective,
+		ValidationOnTouchedErrorDirective,
+		ValidationNoErrorsDirective,
+	],
 	templateUrl: './reactive-form.component.html',
 	styleUrls: [
 		'../../../../../assets/scss/common-page.scss',
@@ -121,7 +128,7 @@ export class ReactiveFormComponent implements OnInit, OnDestroy {
 		console.log(e);
 		console.log(this.form.value);
 
-    if (this.form.invalid) return;
+		if (this.form.invalid) return;
 
 		this.initialFormValues = this.form.value;
 		this.formGroup.resetForm(this.form.value);

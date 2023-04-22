@@ -17,8 +17,8 @@
 			id="name"
 			placeholder="Enter your first name"
 			validationOnTouchedError
-      [ngModelOptions]="{ updateOn: 'blur' }"
-      [(ngModel)]="userInfo.firstName"
+			[ngModelOptions]="{ updateOn: 'blur' }"
+			[(ngModel)]="userInfo.firstName"
 		/>
 	</div>
 
@@ -33,7 +33,7 @@
 			id="last-name"
 			placeholder="Enter your last name"
 			validationOnTouchedError
-      [ngModelOptions]="{ updateOn: 'blur' }"
+			[ngModelOptions]="{ updateOn: 'blur' }"
 			[(ngModel)]="userInfo.lastName"
 		/>
 	</div>
@@ -126,7 +126,7 @@
 	</fieldset>
 
 	<!-- Password -->
-	<fieldset ngModelGroup="password" templateFormPasswordMatchValidato>
+	<fieldset ngModelGroup="password" templateFormPasswordMatchValidator>
 		<legend>User Password</legend>
 		<div class="form-field">
 			<label for="password">Password</label>
@@ -147,6 +147,7 @@
 				type="password"
 				id="confirm-password"
 				placeholder="Confirm the password"
+				validationNoErrors
 				[(ngModel)]="userInfo.confirmPassword"
 			/>
 		</div>
