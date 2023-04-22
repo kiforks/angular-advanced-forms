@@ -8,8 +8,9 @@ import { User } from '../../../../core/interfaces/user';
 /** Directives */
 import { TemplateFormPasswordMatchValidatorDirective } from '../../validators/directives/template-form-password-match-validator/template-form-password-match-validator.directive';
 import { TemplateFormUniqueNicknameValidatorDirective } from '../../validators/directives/template-form-unique-nickname-validator/template-form-unique-nickname-validator.directive';
-import { ValidationErrorMessageDirective } from '../../../../core/modules/validation/directives/validation-error-message/validation-error-message.directive';
 import { TemplateFormBanWordValidatorDirective } from '../../validators/directives/template-form-ban-word-validator/template-form-ban-word-validator.directive';
+import { ValidationErrorMessageDirective } from '../../../../core/modules/validation/directives/validation-error-message/validation-error-message.directive';
+import { ValidationOnTouchedErrorDirective } from '../../../../core/modules/validation/directives/validation-on-touched-error/validation-on-touched-error.directive';
 
 @Component({
 	selector: 'template-form',
@@ -20,8 +21,9 @@ import { TemplateFormBanWordValidatorDirective } from '../../validators/directiv
 		TemplateFormPasswordMatchValidatorDirective,
 		TemplateFormPasswordMatchValidatorDirective,
 		TemplateFormUniqueNicknameValidatorDirective,
-		ValidationErrorMessageDirective,
 		TemplateFormBanWordValidatorDirective,
+		ValidationErrorMessageDirective,
+		ValidationOnTouchedErrorDirective,
 	],
 	templateUrl: './template-form.component.html',
 	styleUrls: ['../../../../../assets/scss/common-page.scss', '../../../../../assets/scss/common-form.scss'],

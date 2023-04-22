@@ -15,8 +15,10 @@
 			name="first-name"
 			type="text"
 			id="name"
-			placeholder="Enter your name"
-			[(ngModel)]="userInfo.firstName"
+			placeholder="Enter your first name"
+			validationOnTouchedError
+      [ngModelOptions]="{ updateOn: 'blur' }"
+      [(ngModel)]="userInfo.firstName"
 		/>
 	</div>
 
@@ -30,6 +32,8 @@
 			type="text"
 			id="last-name"
 			placeholder="Enter your last name"
+			validationOnTouchedError
+      [ngModelOptions]="{ updateOn: 'blur' }"
 			[(ngModel)]="userInfo.lastName"
 		/>
 	</div>
