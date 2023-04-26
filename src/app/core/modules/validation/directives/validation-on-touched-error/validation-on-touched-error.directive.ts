@@ -15,7 +15,7 @@ import { ValidationErrorStateMatcher } from '../../interfaces/validation-error-s
 	providers: [{ provide: VALIDATION_ERROR_STATE_MATCHER, useExisting: ValidationOnTouchedErrorDirective }],
 })
 export class ValidationOnTouchedErrorDirective implements ValidationErrorStateMatcher {
-	public isErrorVisible(control: AbstractControl | null, form: FormGroupDirective | NgForm | null): boolean {
+	public isShowError(control: AbstractControl | null, form: FormGroupDirective | NgForm | null): boolean {
 		return Boolean(control && control?.invalid && (control.touched || (form && form.submitted)));
 	}
 }

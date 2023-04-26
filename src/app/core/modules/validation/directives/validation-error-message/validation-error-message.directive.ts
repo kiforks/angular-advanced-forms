@@ -85,12 +85,12 @@ export class ValidationErrorMessageDirective implements OnInit, OnDestroy, Valid
 	}
 
 	private checkErrors(): void {
-		const isErrorVisible = this.errorStateMatcher.isErrorVisible(this.control.control, this.form as NgForm);
+		const isShowError = this.errorStateMatcher.isShowError(this.control.control, this.form as NgForm);
 
-		isErrorVisible ? this.renderComponent() : this.destroyComponent();
+		isShowError ? this.renderComponent() : this.destroyComponent();
 	}
 
-	public isErrorVisible(control: AbstractControl | null, form: FormGroupDirective | NgForm | null): boolean {
+	public isShowError(control: AbstractControl | null, form: FormGroupDirective | NgForm | null): boolean {
         return Boolean(control && control.invalid && (control.dirty || (form && form.submitted)));
 	}
 }
